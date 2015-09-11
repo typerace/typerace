@@ -1,0 +1,29 @@
+{
+  "name": "typerace",
+  "version": "0.0.1",
+  "homepage": "https://github.com/typerace/typerace",
+  "authors": [
+    "btustanowski <b.tustanowski@gmail.com>"
+  ],
+  "description": "Typerace web app",
+  "main": "server.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "moment": "~2.10.3",
+    "angular": "~1.4.0",
+    "angular-ui-router": "~0.2.15",
+    "normalize.css": "~3.0.3",
+    "angular-resource": "~1.4.0",
+    "socket.io-client": "~1.3.5",
+    "angular-moment": "~0.10.1",
+    "angular-sanitize": "~1.4.3",
+    "cookieconsent2": "~1.0.6"
+  }
+}
