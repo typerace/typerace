@@ -271,5 +271,6 @@ app/components/
 #public build products
 public/css/
 public/js/
-api/config.js
-api/config/_mail.json
+
+#ignore api config
+api/config/
