@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "ap": "node server -p 3000"
+    "ap": "node server -p 3000",
+    "build": "npm install && bower install && gulp"
   },
   "repository": {
     "type": "git",
