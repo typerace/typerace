@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var compress = require('compression');
+var args = require('node-args');
 
 app.use(session({
     secret: 'cnPP86v8BH59HG5nf48y',
@@ -20,12 +21,10 @@ app.use(bodyParser.json());
 app.use(compress());
 
 var passport = require('./api/passport.js');
-/*
-app.use(passport.initialize());
-app.use(passport.session());
-*/
+//app.use(passport.initialize());
+//app.use(passport.session());
 
-var controller  = require('./api/controllers');
+var controller = require('./api/controllers');
 var routes = require('./api/routes.js')(express, app, controller, passport);
 
-server.listen(80);
+server.listen(args.p || args.port || 80);

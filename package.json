@@ -4,7 +4,8 @@
   "description": "Typerace web app",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server",
+    "ap": "node server -p 3000"
   },
   "repository": {
     "type": "git",
@@ -39,6 +40,7 @@
     "gulp.spritesmith": "^4.1.0",
     "moment": "^2.10.6",
     "mysql": "^2.9.0",
+    "node-args": "^1.0.2",
     "node-sass": "^3.3.2",
     "nodemailer": "^1.4.0",
     "nodemailer-smtp-transport": "^1.0.3",

@@ -2,7 +2,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var validator = require('express-validator');
 
-module.exports = function(express, app, controller) {
+module.exports = function (express, app, controller) {
 
     // Prepare the validator
     app.use(validator());
@@ -15,7 +15,10 @@ module.exports = function(express, app, controller) {
     app.use('/template', express.static(path.join(__dirname, '../templates')));
 
     // Controllers
-    // app.use('/api/users', controller.user);
+    // app.use('/api/user', controller.user);
+    // app.use('/api/text', controller.text);
+    // app.use('/api/race', controller.race);
+    // app.use('/api/attempts', controller.attempts);
 
     // root path
     app.get('/', function (req, res) {
@@ -23,7 +26,7 @@ module.exports = function(express, app, controller) {
     });
 
     // 404 catch-all
-    app.get('*', function (req, res) {
+    app.use(function (req, res) {
         res.redirect('/');
     });
 };
