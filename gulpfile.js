@@ -8,24 +8,55 @@ var imagemin = require('gulp-imagemin');
 var spritesmith = require('gulp.spritesmith');
 var del = require('del');
 
+gulp.task('clean', function () {
+    del(['./app/styles/tmp/**/*']);
+});
+
 gulp.task('sass', ['sprites'], function () {
     del(['./app/styles/tmp/scss.css']); // clear output file
-    return gulp.src([
-        './app/components/material-design-lite/src/material-design-lite.scss',
-        './app/styles/global.scss'
-    ]).pipe(sass({
-        style: 'compressed'
-    }))
+    return gulp
+        .src([
+            './app/components/Materialize/bin/materialize.css',
+            './app/styles/global.scss'
+        ])
+        .pipe(sass({
+            style: 'compressed'
+        }))
         .pipe(concat('scss.css'))
         .pipe(gulp.dest('./app/styles/tmp'));
 });
 
-gulp.task('js', function() {
+gulp.task('sprites', function () {
+    del(['./app/styles/tmp/sprites.css']); // clear output file
+    var spriteData = gulp.src('./app/sprites/*.png').pipe(spritesmith({
+        imgName: 'sprite.png',
+        cssName: 'sprites.css',
+        padding: 5,
+        imgPath: '../img/sprite.png'
+    }));
+    spriteData.img.pipe(imagemin()).pipe(gulp.dest('./public/img/'));
+    return spriteData.css.pipe(gulp.dest('./app/styles/tmp'));
+});
+
+gulp.task('css', ['sass'], function () {
+    return gulp.src(
+        [
+            './app/components/normalize.css/typerace.css',
+            './app/styles/tmp/*.css'
+        ]
+    )
+        .pipe(concat('typerace.min.css'))
+        .pipe(cssmin())
+        .pipe(gulp.dest('./public/css'));
+});
+
+gulp.task('js', function () {
     return gulp.src(
         [
             // LIBRARIES AND FRAMEWORKS
             './app/components/moment/moment.js',
             './app/components/angular/angular.js',
+            './app/components/Materialize/bin/materialize.js',
 
             // BOOT
             './app/scripts/boot.js',
@@ -55,36 +86,12 @@ gulp.task('js', function() {
         .pipe(gulp.dest('./public/js'));
 });
 
-gulp.task('sprites', function() {
-    del(['./app/styles/tmp/sprites.css']); // clear output file
-    var spriteData = gulp.src('./app/sprites/*.png').pipe(spritesmith({
-        imgName: 'sprite.png',
-        cssName: 'sprites.css',
-        padding: 5,
-        imgPath: '../img/sprite.png'
-    }));
-    spriteData.img.pipe(imagemin()).pipe(gulp.dest('./public/img/'));
-    return spriteData.css.pipe(gulp.dest('./app/styles/tmp'));
-});
-
-gulp.task('css', ['sass', 'sprites'],  function() {
-    return gulp.src(
-        [
-            './app/components/normalize.css/typerace.css',
-            './app/styles/tmp/*.css'
-        ]
-    )
-        .pipe(concat('typerace.min.css'))
-        .pipe(cssmin())
-        .pipe(gulp.dest('./public/css'));
-});
-
 // Run tasks
-gulp.task('default', ['js', 'css'], function() {
+gulp.task('default', ['js', 'css'], function () {
     console.log('Build complete!');
 });
 
-gulp.task('watch', function () {
+gulp.task('watch', ['default'], function () {
     gulp.watch('./app/styles/**', ['css']);
     gulp.watch('./app/scripts/**', ['js']);
 });
