@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "homepage": "https://github.com/typerace/typerace",
   "authors": [
-    "btustanowski <b.tustanowski@gmail.com>"
+    "btustanowski <b.tustanowski@gmail.com>",
+    "christiansandor <contact@christiansandor.com>"
   ],
   "description": "Typerace web app",
   "main": "server.js",

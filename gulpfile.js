@@ -6,6 +6,7 @@ var rename = require('gulp-rename');
 var cssmin = require('gulp-cssmin');
 var imagemin = require('gulp-imagemin');
 var spritesmith = require('gulp.spritesmith');
+var util = require('gulp-util');
 var del = require('del');
 
 gulp.task('clean', function () {
@@ -54,6 +55,7 @@ gulp.task('js', function () {
     return gulp.src(
         [
             // LIBRARIES AND FRAMEWORKS
+            './app/components/jquery/dist/jquery.js',
             './app/components/moment/moment.js',
             './app/components/angular/angular.js',
             './app/components/Materialize/bin/materialize.js',
@@ -79,10 +81,10 @@ gulp.task('js', function () {
         ]
     )
         .pipe(concat('typerace.js'))
-        //.pipe(gulp.dest('./public/js')) // Uncomment to add non-ugly output.
+        .pipe(gulp.dest('./public/js')) // Uncomment to add non-ugly output.
         .pipe(rename('typerace.min.js'))
         // .pipe(ngmin()) // VERY heavy angular-safe compression. If ran, it should be possible to enable mangling in uglify(). REQUIRES EXTENSIVE TESTING AFTERWARDS.
-        .pipe(uglify({mangle: false}))
+        .pipe(uglify({mangle: false}).on('error', util.log))
         .pipe(gulp.dest('./public/js'));
 });
 
