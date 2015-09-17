@@ -21,8 +21,8 @@ app.use(bodyParser.json());
 app.use(compress());
 
 var passport = require('./api/passport.js');
-//app.use(passport.initialize());
-//app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 var controller = require('./api/controllers');
 var routes = require('./api/routes.js')(express, app, controller, passport);

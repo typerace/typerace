@@ -13,49 +13,10 @@ typerace.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', fu
             templateUrl: 'template/home.html'
         })
         .state('auth', {
-            url: '/auth',
+            url: '/signin',
             templateUrl: 'template/auth.html',
-            controller: 'AuthController'
-        })
-        .state('dashboard', {
-            url: '/dashboard',
-            templateUrl: 'template/dashboard.html',
-            controller: 'DashboardController'
-        })
-        .state('lobby', {
-            url: '/lobby',
-            templateUrl: 'template/lobby.html',
-            controller: 'LobbyController'
-        })
-        .state('race', {
-            url: '/race/:id',
-            templateUrl: 'template/race.html',
-            controller: 'RaceController'
-        })
-        .state('summary', {
-            url: '/summary/:id',
-            templateUrl: 'template/summary.html',
-            controller: 'SummaryController'
-        })
-        .state('scores', {
-            url: '/hall-of-fame',
-            templateUrl: 'template/scores.html',
-            controller: 'ScoresController'
-        })
-        .state('help', {
-            url: '/help',
-            templateUrl: 'template/help.html',
-            controller: 'HelpController'
-        })
-        .state('contact', {
-            url: '/contact',
-            templateUrl: 'template/contact.html',
-            controller: 'ContactController'
-        })
-        .state('pricing', {
-            url: '/pricing',
-            templateUrl: 'template/pricing.html',
-            controller: 'PricingController'
+            controller: 'AuthController',
+            controllerAs: 'vm'
         });
 
 }]);

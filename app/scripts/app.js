@@ -7,11 +7,11 @@ var typerace = angular.module('typerace', [
     //'ngAnimate',
     'ui.router',
     //'toastr',
-    //'filters',
-    //'services',
-    //'factories',
-    //'directives',
-    //'controllers'
+    'filters',
+    'services',
+    'factories',
+    'directives',
+    'controllers'
 ]).run(function($templateCache, $http, $timeout, $rootScope, amMoment) {
     $rootScope.$on('$stateChangeSuccess', function() {
         document.body.scrollTop = document.documentElement.scrollTop = 0;
