@@ -1,7 +1,9 @@
-controllers.controller('AuthController', [
-  '$rootScope', '$scope', '$state',
+controllers.controller("AuthController", [
+  "$rootScope", "$scope", "$state",
   function ($rootScope, $scope, $state) {
-    if (D.debug) console.log('AuthController reporting in.');
+    if (D.debug) {
+        console.log("AuthController reporting in.");
+    }
     var vm = this;
 
     vm.user = D.user;

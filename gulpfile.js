@@ -8,6 +8,7 @@ var imagemin = require('gulp-imagemin');
 var spritesmith = require('gulp.spritesmith');
 var util = require('gulp-util');
 var del = require('del');
+var eslint = require('gulp-eslint');
 
 gulp.task('clean', function () {
     del(['./app/styles/tmp/**/*']);
@@ -51,7 +52,20 @@ gulp.task('css', ['sass'], function () {
         .pipe(gulp.dest('./public/css'));
 });
 
-gulp.task('js', function () {
+gulp.task('lint', function () {
+    return gulp.src([
+        './app/scripts/**/*.js',
+        './app/scripts/*.js',
+        './api/controllers/*.js',
+        './app/models/*.js',
+        './app/*.js'
+    ])
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failOnError());
+});
+
+gulp.task('js', ['lint'], function () {
     return gulp.src(
         [
             // LIBRARIES AND FRAMEWORKS

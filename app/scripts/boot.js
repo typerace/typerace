@@ -1,18 +1,18 @@
 ;(function () {
     // The Depot
-    var D = $.extend(JSON.parse(localStorage.getItem('C')) || {
+    var D = $.extend(JSON.parse(localStorage.getItem("C")) || {
             debug: true,
-            locale: '',
+            locale: "",
             api: {
-                url: '//' + window.location.hostname + '/api'
+                url: "//" + window.location.hostname + "/api"
             },
             user: {}
         }, {
         save: function () {
-            localStorage.setItem('D', JSON.stringify(D));
+            localStorage.setItem("D", JSON.stringify(D));
         },
         load: function () {
-            D = JSON.parse(localStorage.getItem('D'));
+            D = JSON.parse(localStorage.getItem("D"));
         }
     });
 

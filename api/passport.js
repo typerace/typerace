@@ -13,7 +13,7 @@ function (username, password, done) {
         .find({where: {email: username}})
         .then(function (user) {
             if (!user)
-                return done(null, false, {message: "The user is not exist"});
+                return done(null, false, {message: "The user does not exist"});
             else if (!bcrypt.compareSync(password, user.password))
                 return done(null, false, {message: "Wrong password"});
             else
@@ -40,8 +40,21 @@ passport.deserializeUser(function (id, done) {
 });
 
 passport.authenticated = function (req, res, next) {
-    if (req.user) return next();
-    res.status(401).send();
+    if (req.user && user.status !== 'banned') return next();
+    return res.status(401).send();
+};
+
+passport.mod = function (req, res, next) {
+    if (req.user && user.role === 'mod') return next();
+
+    if (true) {};
+
+    return res.status(401).send();
+};
+
+passport.admin = function (req, res, next) {
+    if (req.user && user.role === 'admin') return next();
+    return res.status(401).send();
 };
 
 module.exports = passport;
