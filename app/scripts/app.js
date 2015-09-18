@@ -1,17 +1,20 @@
-var typerace = angular.module("typerace", [
-    //"pascalprecht.translate",
+controllers = angular.module("controllers", []);
+directives = angular.module("directives", []);
+factories = angular.module("factories", []);
+services = angular.module("services", []);
+filters = angular.module("filters", []);
+typerace = angular.module("typerace", [
+    // "pascalprecht.translate",
     "angularMoment",
-    //"ngFileUpload",
+    // "ngFileUpload",
     "ngResource",
     "ngSanitize",
-    //"ngAnimate",
     "ui.router",
-    //"toastr",
     "filters",
     "services",
     "factories",
     "directives",
-    "controllers"
+    "controllers",
 ]).run(function($templateCache, $http, $timeout, $rootScope, amMoment) {
     $rootScope.$on("$stateChangeSuccess", function() {
         document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -19,20 +22,13 @@ var typerace = angular.module("typerace", [
 
     amMoment.changeLocale(navigator.language);
 
-    //$translate.use(C.locale || navigator.language.split("-")[0]);
+    // $translate.use(C.locale || navigator.language.split("-")[0]);
 
-    /* preload templates *
+    /* preload templates
     $timeout(function() {
          $http.get("front/page/home", {cache:$templateCache});
     }, 200);
-    /* */
+    */
 
     $(".modal-trigger").leanModal();
 });
-
-// Declare modules
-var filters = angular.module("filters", []);
-var services = angular.module("services", []);
-var factories = angular.module("factories", []);
-var directives = angular.module("directives", []);
-var controllers = angular.module("controllers", []);

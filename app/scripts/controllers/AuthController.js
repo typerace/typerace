@@ -1,15 +1,13 @@
 controllers.controller("AuthController", [
-  "$rootScope", "$scope", "$state",
-  function ($rootScope, $scope, $state) {
-    if (D.debug) {
-        console.log("AuthController reporting in.");
-    }
-    var vm = this;
+    "$log",
+    function($log) {
+        var vm = this;
+        if (D.debug) {
+            $log.info("AuthController reporting in.");
+        }
 
-    vm.user = D.user;
-    vm.processing = false;
-    vm.form = {};
-
-
-  }
+        vm.user = D.user;
+        vm.processing = false;
+        vm.form = {};
+    },
 ]);

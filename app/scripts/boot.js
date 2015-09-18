@@ -1,20 +1,22 @@
-;(function () {
+(function boot() {
     // The Depot
-    var D = $.extend(JSON.parse(localStorage.getItem("C")) || {
+    var D = $.extend(
+        JSON.parse(localStorage.getItem("C")) || {
             debug: true,
             locale: "",
             api: {
-                url: "//" + window.location.hostname + "/api"
+                url: "//" + window.location.hostname + "/api",
             },
-            user: {}
+            user: {},
         }, {
-        save: function () {
-            localStorage.setItem("D", JSON.stringify(D));
-        },
-        load: function () {
-            D = JSON.parse(localStorage.getItem("D"));
+            save: function() {
+                localStorage.setItem("D", JSON.stringify(D));
+            },
+            load: function() {
+                D = JSON.parse(localStorage.getItem("D"));
+            },
         }
-    });
+    );
 
     window.D = D;
 
@@ -23,6 +25,6 @@
         "dismiss": "_ok",
         "learnMore": "more",
         "link": null,
-        "theme": "dark-bottom"
+        "theme": "dark-bottom",
     };
 })();
