@@ -58,7 +58,8 @@ gulp.task('lint', function () {
         './app/scripts/*.js',
         './api/controllers/*.js',
         './app/models/*.js',
-        './app/*.js'
+        './api/*.js',
+        './app/*.js',
     ])
         .pipe(eslint())
         .pipe(eslint.format())

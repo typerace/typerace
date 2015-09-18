@@ -1,4 +1,4 @@
-(function boot() {
+(function() {
     // The Depot
     var D = $.extend(
         JSON.parse(localStorage.getItem("C")) || {
