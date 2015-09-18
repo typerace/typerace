@@ -33,6 +33,36 @@ router.post("/logout", function(req, res) {
     return res.send("logout successful");
 });
 
+router.post("/register", function(req, res, next) {
+    var errors = req.validationErrors() || [];
+
+    req.checkBody("email", "Please enter your e-mail.").notEmpty();
+    req.checkBody("email", "Please enter a valid e-mail address.").isEmail();
+    req.checkBody("password", "Please enter your password.").notEmpty();
+    req.checkBody("password", "Your password must be at least 5 characters long.").len(5);
+    req.checkBody("password2", "Please repeat your password.").equals(req.body.password);
+
+    // Check if email is unique.
+    model.user.find({where: {email: req.body.email}}).then(function(row) {
+        if (row !== null) {
+            errors.push({
+                param: "email",
+                msg: "This e-mail address has already been registered.",
+                value: req.body.email,
+            });
+        }
+    }).then(function() {
+        if (errors.length) return res.status(400).json(errors);
+        next();
+    });
+}, function(req, res) {
+    model.user.create({
+        email: req.body.email,
+        password: bcrypt.hashSync(req.body.password),
+    });
+    res.send();
+});
+
 // Temporary login check
 router.get("/check", function(req, res) {
     res.send(req.user ? "logged in" : "not logged in");
