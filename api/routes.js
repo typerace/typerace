@@ -13,7 +13,7 @@ module.exports = function(express, app, controller) {
     app.use("/template", express.static(path.join(__dirname, "../templates")));
 
     // Controllers
-    app.use("/api/user", controller.user);
+    app.use("/api/users", controller.user);
     // app.use("/api/text", controller.text);
     // app.use("/api/race", controller.race);
     // app.use("/api/attempts", controller.attempts);

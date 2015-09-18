@@ -1,20 +1,20 @@
-'use strict';
-module.exports = function (sequelize, DataTypes) {
+"use strict";
+module.exports = function(sequelize, DataTypes) {
     var run = sequelize.define("run", {
         started: DataTypes.DATE,
         finished: DataTypes.DATE,
-        progress: DataTypes.STRING
+        progress: DataTypes.STRING,
     }, {
         paranoid: true, // use deleted-at
-        underscored: true, // don't camelcase
-        tableName: 'runs',
+        underscored: true, // don"t camelcase
+        tableName: "runs",
         classMethods: {
-            associate: function (model) {
+            associate: function(model) {
                 run.belongsTo(model.user);
                 run.belongsTo(model.race);
                 run.belongsTo(model.text);
-            }
-        }
+            },
+        },
     });
 
     return run;

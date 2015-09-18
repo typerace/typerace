@@ -64,8 +64,8 @@ router.post("/register", function(req, res, next) {
 });
 
 // Temporary login check
-router.get("/check", function(req, res) {
-    res.send(req.user ? "logged in" : "not logged in");
+router.get("/check", passport.user, function(req, res) {
+    res.send();
 });
 
 module.exports = router;

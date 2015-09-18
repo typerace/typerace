@@ -27,4 +27,6 @@ app.use(passport.session());
 var controller = require('./api/controllers');
 var routes = require('./api/routes.js')(express, app, controller, passport);
 
-server.listen(args.p || args.port || 80);
+server.listen(process.env.NODE_PORT || args.p || args.port || 80);
+
+module.exports = app;

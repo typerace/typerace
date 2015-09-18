@@ -118,6 +118,7 @@
       "newIsCap": true,
       "capIsNewExceptions": [
         "express.Router",
+        "DataTypes.ENUM",
       ]
     }],
     "no-multiple-empty-lines": [2, { // http://eslint.org/docs/rules/no-multiple-empty-lines

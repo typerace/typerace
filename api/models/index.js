@@ -2,26 +2,27 @@
 
 var fs = require("fs");
 var path = require("path");
-var sequelize = require("sequelize");
-var args = require('node-args');
+var Sequelize = require("sequelize");
+var args = require("node-args");
 
-var env = process.env.NODE_ENV || args.e || args.env || "development";
-var config = require(__dirname + '/../config/_db')[env];
-var db = new sequelize(config.database, config.username, config.password, config);
+var env = process.env.NODE_ENV || args.e || args.env || "dev";
+var config = require(__dirname + "/../config/" + env).db;
+var db = new Sequelize(config.database, config.username, config.password, config);
 
 var obj = {};
 
-fs.readdirSync(__dirname).map(function (file) {
+fs.readdirSync(__dirname).map(function(file) {
+    var model;
     if (file.indexOf(".") === 0 || file === "index.js") return;
-    var model = db["import"](path.join(__dirname, file));
+    model = db.import(path.join(__dirname, file));
     obj[model.name] = model;
 });
 
-Object.keys(obj).map(function (key) {
+Object.keys(obj).map(function(key) {
     if ("associate" in obj[key]) obj[key].associate(obj);
 });
 
 obj.sequelize = db;
-obj.Sequelize = sequelize;
+obj.Sequelize = Sequelize;
 
 module.exports = obj;

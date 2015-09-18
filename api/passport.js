@@ -37,7 +37,7 @@ passport.deserializeUser(function(id, done) {
         });
 });
 
-passport.authenticated = function(req, res, next) {
+passport.user = function(req, res, next) {
     if (req.user && user.status !== "banned") return next();
     return res.status(401).send();
 };
