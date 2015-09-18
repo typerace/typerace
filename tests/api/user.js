@@ -8,7 +8,7 @@ var should = chai.should();
 var expect = chai.expect;
 chai.use(chaiHttp);
 
-it('should correctly respond to /users/check', function(done) {
+it('should correctly respond to /users/check as guest', function(done) {
     chai.request(server)
         .get('/api/users/check')
         .end(function(err, res){
