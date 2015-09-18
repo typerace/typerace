@@ -106,7 +106,15 @@ gulp.task("js", ["lint"], function () {
 
 
 gulp.task("test-api",  function () {
-    return gulp.src('./tests/api/*.js', {read: false}).pipe(mocha());
+    return gulp.src('./tests/api/*.js', {read: false}).pipe(mocha({
+        timeout: 2000,
+        useColors: true,
+        useInlineDiffs: true
+    })).once('error', function () {
+        process.exit(1);
+    }).once('end', function () {
+        process.exit();
+    });
 });
 
 // Run tasks
