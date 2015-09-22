@@ -22,9 +22,8 @@ describe("/api/users endpoint", function() {
     // TEARDOWN
     after("remove the test user", function() {
         model.user.destroy({
-            where: {
-                email: mock.user.email,
-            },
+            truncate: true,
+            force: true,
         });
     });
 
@@ -40,7 +39,8 @@ describe("/api/users endpoint", function() {
 
     it("should respond to incorrect login attempts", function(done) {
         chai.request(server)
-            .post("/api/users/login", {
+            .post("/api/users/login")
+            .send({
                 "email": "incorrect@email.com",
                 "password": "password",
             })
@@ -53,9 +53,11 @@ describe("/api/users endpoint", function() {
 
     it("should respond to incorrect registration attempts", function(done) {
         chai.request(server)
-            .post("/api/users/register", {
+            .post("/api/users/register")
+            .send({
                 "email": "incorrectemail",
                 "password": "password",
+                "password2": "password",
             })
             .end(function(err, res) {
                 expect(err).to.be.null;
@@ -66,13 +68,30 @@ describe("/api/users endpoint", function() {
 
     it("should respond to incomplete registration attempts", function(done) {
         chai.request(server)
-            .post("/api/users/register", {
+            .post("/api/users/register")
+            .send({
                 "email": "incorrect@email.com",
                 "password": "password",
             })
             .end(function(err, res) {
                 expect(err).to.be.null;
                 expect(res).to.have.status(400);
+                done();
+            });
+    });
+
+
+    it("should respond to correct registration attempts", function(done) {
+        chai.request(server)
+            .post("/api/users/register")
+            .send({
+                "email": "correct@gmail.com",
+                "password": "password1",
+                "password2": "password1",
+            })
+            .end(function(err, res) {
+                expect(err).to.be.null;
+                expect(res).to.have.status(201);
                 done();
             });
     });

@@ -42,7 +42,7 @@ router.post("/register", function(req, res, next) {
     req.checkBody("password", "Your password must be at least 5 characters long.").len(5);
     req.checkBody("password2", "Please repeat your password.").equals(req.body.password);
 
-    errors = req.validationErrors();
+    errors = req.validationErrors() || [];
     // Check if email is unique.
     model.user.find({where: {email: req.body.email}}).then(function(row) {
         if (row !== null) {
