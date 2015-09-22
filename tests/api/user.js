@@ -16,6 +16,10 @@ describe("/api/users endpoint", function() {
 
     // SETUP
     before("prepare a test user", function() {
+        model.user.destroy({
+            truncate: true,
+            force: true,
+        });
         model.user.create(mock.user);
     });
 
@@ -92,6 +96,46 @@ describe("/api/users endpoint", function() {
             .end(function(err, res) {
                 expect(err).to.be.null;
                 expect(res).to.have.status(201);
+                done();
+            });
+    });
+
+    it("should respond to duplicate registration attempts", function(done) {
+        chai.request(server)
+            .post("/api/users/register")
+            .send({
+                "email": "correct@gmail.com",
+                "password": "password1",
+                "password2": "password1",
+            })
+            .end(function(err, res) {
+                expect(err).to.be.null;
+                expect(res).to.have.status(400);
+                done();
+            });
+    });
+
+    it("should respond to correct login attempts", function(done) {
+        chai.request(server)
+            .post("/api/users/login")
+            .send({
+                "email": "correct@gmail.com",
+                "password": "password1",
+            })
+            .end(function(err, res) {
+                expect(err).to.be.null;
+                expect(res).to.have.cookie('typerace.sid');
+                expect(res).to.have.status(200);
+                done();
+            });
+    });
+
+    it("should respond to /users/check as user", function(done) {
+        chai.request(server)
+            .get("/api/users/check")
+            .end(function(err, res) {
+                expect(err).to.be.null;
+                expect(res).to.have.status(200);
                 done();
             });
     });
