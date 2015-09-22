@@ -38,17 +38,17 @@ passport.deserializeUser(function(id, done) {
 });
 
 passport.user = function(req, res, next) {
-    if (req.user && user.status !== "banned") return next();
+    if (req.user && req.user.status !== "banned") return next();
     return res.status(401).send();
 };
 
 passport.mod = function(req, res, next) {
-    if (req.user && user.role === "mod") return next();
+    if (req.user && req.user.role === "mod") return next();
     return res.status(401).send();
 };
 
 passport.admin = function(req, res, next) {
-    if (req.user && user.role === "admin") return next();
+    if (req.user && req.user.role === "admin") return next();
     return res.status(401).send();
 };
 

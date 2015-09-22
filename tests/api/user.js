@@ -13,6 +13,7 @@ describe("/api/users endpoint", function() {
             password: bcrypt.hashSync("test"),
         },
     };
+    var cookie;
 
     // SETUP
     before("prepare a test user", function() {
@@ -124,8 +125,9 @@ describe("/api/users endpoint", function() {
             })
             .end(function(err, res) {
                 expect(err).to.be.null;
-                expect(res).to.have.cookie('typerace.sid');
+                expect(res).to.have.cookie("typerace.sid");
                 expect(res).to.have.status(200);
+                cookie = res.headers["set-cookie"];
                 done();
             });
     });
@@ -133,6 +135,7 @@ describe("/api/users endpoint", function() {
     it("should respond to /users/check as user", function(done) {
         chai.request(server)
             .get("/api/users/check")
+            .set("cookie", cookie)
             .end(function(err, res) {
                 expect(err).to.be.null;
                 expect(res).to.have.status(200);
