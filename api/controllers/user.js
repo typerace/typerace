@@ -61,7 +61,7 @@ router.post("/register", function(req, res, next) {
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password),
     });
-    res.send();
+    res.status(201).send();
 });
 
 // Temporary login check

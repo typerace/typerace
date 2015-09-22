@@ -55,12 +55,18 @@ gulp.task("css", ["sass"], function () {
 
 gulp.task("lint", function () {
     return gulp.src([
+        // app
         "./app/scripts/**/*.js",
         "./app/scripts/*.js",
+        "./app/*.js",
+
+        // api
         "./api/controllers/*.js",
         "./api/models/*.js",
         "./api/*.js",
-        "./app/*.js",
+
+        // tests
+        "./tests/**/*.js"
     ])
         .pipe(eslint())
         .pipe(eslint.format())
@@ -106,6 +112,9 @@ gulp.task("js", ["lint"], function () {
 
 
 gulp.task("test-api",  function () {
+    process.env.NODE_ENV = "test";
+    process.env.NODE_PORT = "9001";
+
     return gulp.src('./tests/api/*.js', {read: false}).pipe(mocha({
         timeout: 2000,
         useColors: true,
