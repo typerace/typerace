@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var model  = require("../models");
-// var bcrypt = require("bcrypt-nodejs");
+var bcrypt = require("bcrypt-nodejs");
 var passport = require("passport");
 // var mailer = require("../config/mailer.js");
 // var utils  = require("../utils");
@@ -34,7 +34,7 @@ router.post("/logout", function(req, res) {
 });
 
 router.post("/register", function(req, res, next) {
-    var errors = req.validationErrors() || [];
+    var errors;
 
     req.checkBody("email", "Please enter your e-mail.").notEmpty();
     req.checkBody("email", "Please enter a valid e-mail address.").isEmail();
@@ -42,6 +42,7 @@ router.post("/register", function(req, res, next) {
     req.checkBody("password", "Your password must be at least 5 characters long.").len(5);
     req.checkBody("password2", "Please repeat your password.").equals(req.body.password);
 
+    errors = req.validationErrors();
     // Check if email is unique.
     model.user.find({where: {email: req.body.email}}).then(function(row) {
         if (row !== null) {
