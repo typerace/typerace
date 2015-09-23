@@ -1,6 +1,13 @@
-$background: #f7f7f7;
+$tablet: 767px;
+$desktop: 1025px;
+$desktop-large: 1300px;
+
+$header-height: 60px;
 
 $roboto: 'Roboto', sans-serif;
+
+$background: #f7f7f7;
+$blue-background: #f3f3f9;
 
 $white: #fff;
 $red: #ee3823;
@@ -18,6 +25,16 @@ $grey-darker: #555;
 $grey-darkest: #262626;
 $black: #000;
 
-$primary: #477ab9 ;
+$primary: #477ab9;
 $secondary: #ff9254;
 $tertiary: #5d51c1;
+
+$primary-light: lighten($primary, 5%);
+$primary-dark: darken($primary, 5%);
+$primary-darker: darken($primary, 15%);
+$secondary-light: lighten($secondary, 5%);
+$secondary-dark: darken($secondary, 5%);
+$secondary-darker: darken($secondary, 15%);
+$tertiary-light: lighten($tertiary, 5%);
+$tertiary-dark: darken($tertiary, 5%);
+$tertiary-darker: darken($tertiary, 15%);

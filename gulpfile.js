@@ -19,12 +19,9 @@ gulp.task("sass", ["sprites"], function () {
     del(["./app/styles/tmp/scss.css"]); // clear output file
     return gulp
         .src([
-            "./app/components/Materialize/bin/materialize.css",
             "./app/styles/global.scss"
         ])
-        .pipe(sass({
-            style: "compressed"
-        }))
+        .pipe(sass({style: "compressed"}).on('error', util.log))
         .pipe(concat("scss.css"))
         .pipe(gulp.dest("./app/styles/tmp"));
 });
@@ -44,7 +41,10 @@ gulp.task("sprites", function () {
 gulp.task("css", ["sass"], function () {
     return gulp.src(
         [
-            "./app/components/normalize.css/typerace.css",
+            "./app/components/pure/base-min.css",
+            "./app/components/normalize.css",
+            "./app/components/pure/grids-min.css",
+            "./app/components/pure/grids-responsive-min.css",
             "./app/styles/tmp/*.css"
         ]
     )
@@ -66,7 +66,10 @@ gulp.task("lint", function () {
         "./api/*.js",
 
         // tests
-        "./tests/**/*.js"
+        "./tests/**/*.js",
+
+        // exclusions
+        "!./app/scripts/third/*.js",
     ])
         .pipe(eslint())
         .pipe(eslint.format())
@@ -80,7 +83,7 @@ gulp.task("js", ["lint"], function () {
             "./app/components/jquery/dist/jquery.js",
             "./app/components/moment/moment.js",
             "./app/components/angular/angular.js",
-            "./app/components/Materialize/bin/materialize.js",
+            "./app/scripts/third/*.js",
 
             // BOOT
             "./app/scripts/boot.js",
@@ -132,6 +135,6 @@ gulp.task("default", ["js", "css"], function () {
 });
 
 gulp.task("watch", ["default"], function () {
-    gulp.watch("./app/styles/**", ["css"]);
-    gulp.watch("./app/scripts/**", ["js"]);
+    gulp.watch("./app/styles/**/*", ["css"]);
+    gulp.watch("./app/scripts/**/*", ["js"]);
 });

@@ -1,7 +1,78 @@
-@mixin transition($args...) {
-  -webkit-transition: $args;
-  -moz-transition: $args;
-  -ms-transition: $args;
-  -o-transition: $args;
-  transition: $args;
+// Vendors
+
+@mixin vendorKeyValue($name, $argument...) {
+  -webkit-#{$name}: -webkit-#{$argument};
+  -moz-#{$name}: -moz-#{$argument};
+  -ms-#{$name}: -ms-#{$argument};
+  -o-#{$name}: -o-#{$argument};
+  #{$name}: $argument;
 }
+
+@mixin vendorKey($name, $argument...) {
+  -webkit-#{$name}: $argument;
+  -moz-#{$name}: $argument;
+  -ms-#{$name}: $argument;
+  -o-#{$name}: $argument;
+  #{$name}: $argument;
+}
+
+@mixin vendorValue($name, $argument...) {
+  #{$name}: -webkit-#{$argument};
+  #{$name}: -ms-#{$argument};
+  #{$name}: -moz-#{$argument};
+  #{$name}: -o-#{$argument};
+  #{$name}: $argument;
+}
+
+@mixin transition($transitions...) {
+  @include vendorKey(transition, $transitions...);
+}
+
+@mixin transform($transforms) {
+  @include vendorKey(transform, $transforms);
+}
+
+@mixin transitionTransform($additional) {
+  @include vendorKeyValue(transition, transform $additional);
+}
+
+@mixin animation($attr...) {
+  @include vendorKey(animation, $attr);
+}
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+// Fonts
+
+@mixin font-normal {
+  font-family: $roboto;
+  font-weight: 300;
+}
+
+@mixin font-strong {
+  font-family: $roboto;
+  font-weight: 500;
+}
+
+// Media
+
+@mixin tablet { @media screen and (min-width: $tablet) { @content; } }
+@mixin desktop { @media screen and (min-width: $desktop) { @content; } }
+@mixin desktop-large { @media screen and (min-width: $desktop-large) { @content; } }
+
+@mixin only-mobile { @media screen and (max-width: $tablet - 1px) { @content; } }
+@mixin only-tablet { @media screen and (min-width: $tablet) and (max-width: $desktop - 1px) { @content; } }
+@mixin only-mobile-and-tablet { @media screen and (max-width: $desktop - 1px) { @content; } }

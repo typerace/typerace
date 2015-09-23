@@ -1,0 +1,26 @@
+#auth {
+  display: block;
+  margin: 50px auto;
+  width: 420px;
+  color: $primary;
+
+  label {
+    display: inline-block;
+    font-size: 16px;
+
+    @include font-strong;
+  }
+
+  input {
+    display: block;
+    padding: 10px;
+    margin: 5px 0 15px;
+    width: 100%;
+    background: $blue-background;
+    color: $primary-darker;
+    border: 2px solid $primary-light;
+    outline: none;
+
+    @include font-strong;
+  }
+}

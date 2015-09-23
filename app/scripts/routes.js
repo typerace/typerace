@@ -8,7 +8,7 @@ typerace.config(["$stateProvider", "$urlRouterProvider", "$locationProvider",
 
         // Define states
         $stateProvider
-            .state("index", {
+            .state("home", {
                 url: "/",
                 templateUrl: "template/home.html",
             })

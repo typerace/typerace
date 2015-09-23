@@ -1,23 +1,35 @@
 @import "variables";
 @import "mixins";
+@import "icons";
 @import "sections";
 @import "components";
 @import "header";
 @import "footer";
+@import "home";
+@import "auth";
+
+@import "typer";
+
+@include keyframes(caret) {
+  0% { opacity: 1; }
+  40% { opacity: 1; }
+  60% { opacity: 0; }
+  100% { opacity: 0; }
+}
 
 * {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+  @include vendorKey(box-sizing, border-box);
 }
 
 body {
+  padding-top: $header-height;
   line-height: 1.7em;
   background: $grey-light;
   color: $grey-darkest;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: $roboto;
+
+  @include font-normal;
 }
 
 a {
@@ -37,21 +49,21 @@ p {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: $roboto;
-  font-weight: 300;
+  margin: 0;
+  @include font-strong;
 }
 
 h1 {
-  font-size: 3.2rem;
+  font-size: 2rem;
 }
 
 h2 {
-  font-size: 2.8rem;
+  font-size: 1.6rem;
 }
 
 h3 {
   margin: 10px 0;
-  font-size: 1.4em;
+  font-size: 1.3rem;
   text-transform: uppercase;
   font-weight: 500;
 }
@@ -94,4 +106,16 @@ section {
 .container {
   max-width: 1170px;
   margin: 0 auto;
+}
+
+.align {
+  &.left { text-align: left; }
+  &.center { text-align: center; }
+  &.right { text-align: right; }
+}
+
+@include only-mobile {
+  .no-mobile {
+    display: none !important;
+  }
 }

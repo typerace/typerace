@@ -1,0 +1,52 @@
+.typer {
+  display: block;
+  padding: 10px;
+  margin: 0 auto;
+  background: $primary;
+  width: 520px;
+
+  .type-container {
+    display: block;
+    position: relative;
+    background: $primary-light;
+
+    .type-text, .type-area {
+      display: block;
+      padding: 10px;
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: normal;
+      word-spacing: normal;
+      text-indent: 0;
+      @include font-strong;
+      span {
+        display: inline;
+      }
+    }
+
+    .type-text {
+      color: $primary-darker;
+      span {
+        color: $black;
+      }
+    }
+
+    .type-area {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      resize: none;
+      background: none;
+      border: none;
+      color: $white;
+      outline: none;
+    }
+  }
+
+  .type-buttons {
+    margin-top: 10px;
+    text-align: right;
+  }
+}
