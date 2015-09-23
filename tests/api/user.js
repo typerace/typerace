@@ -142,4 +142,14 @@ describe("/api/users endpoint", function() {
                 done();
             });
     });
+
+    it("should respond to correct logout attempts", function(done) {
+        chai.request(server)
+            .post("/api/users/logout")
+            .end(function(err, res) {
+                expect(err).to.be.null;
+                expect(res).to.have.status(200);
+                done();
+            });
+    });
 });

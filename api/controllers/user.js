@@ -28,9 +28,14 @@ router.post("/login", function(req, res, next) {
     })(req, res, next);
 });
 
-router.post("/logout", function(req, res) {
+router.post("/logout", function(req, res, next) {
     req.logout();
-    return res.send("logout successful");
+    req.session.destroy(function() {
+        req.session = null;
+        next();
+    });
+}, function(req, res) {
+    return res.status(200).send();
 });
 
 router.post("/register", function(req, res, next) {
