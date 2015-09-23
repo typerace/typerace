@@ -1,0 +1,97 @@
+@import "variables";
+@import "mixins";
+@import "sections";
+@import "components";
+@import "header";
+@import "footer";
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  line-height: 1.7em;
+  background: $grey-light;
+  color: $grey-darkest;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: $roboto;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: $secondary;
+  font-family: $roboto;
+  &:focus {
+    outline: 0;
+  }
+}
+
+p {
+  font-family: $roboto;
+  font-size: 14px;
+  color: $grey-darker;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $roboto;
+  font-weight: 300;
+}
+
+h1 {
+  font-size: 3.2rem;
+}
+
+h2 {
+  font-size: 2.8rem;
+}
+
+h3 {
+  margin: 10px 0;
+  font-size: 1.4em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+h4 {
+  font-size: 2rem;
+}
+
+h5 {
+  color: $grey-dark;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-style: italic;
+  font-size: 12px;
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+em {
+  font-style: normal;
+  color: $green;
+  font-weight: 700;
+}
+
+section {
+  position: relative;
+  &.padded {
+    margin-top: 50px;
+  }
+  &.white {
+    background: $white;
+  }
+}
+
+.container {
+  max-width: 1170px;
+  margin: 0 auto;
+}
