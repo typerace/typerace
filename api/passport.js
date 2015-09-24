@@ -2,6 +2,7 @@ var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 var bcrypt = require("bcrypt-nodejs");
 var model = require("./models");
+var util  = require("./utils");
 
 passport.use(new LocalStrategy({
     // set the field name here
@@ -17,6 +18,7 @@ function(username, password, done) {
             if (!bcrypt.compareSync(password, user.password))
                 return done(null, false, {message: "Wrong password"});
 
+            user.sessionkey = util.generateHash(3);
             return done(null, user);
         }).catch(function(err) {
             return done(err);
@@ -24,17 +26,23 @@ function(username, password, done) {
 }));
 
 passport.serializeUser(function(user, done) {
-    done(null, user.id);
+    // second param is the obj, passed as first param to deserializeUser
+    done(null, {id: user.id, key: user.sessionkey});
 });
 
-passport.deserializeUser(function(id, done) {
+passport.deserializeUser(function(obj, done) {
     // query the current user from database
-    model.user.findById(id)
-        .then(function(user) {
-            done(null, user);
-        }).catch(function() {
-            done(new Error("User " + id + " does not exist"));
-        });
+    model.user.find({
+        where: {
+            id: obj.id,
+            sessionkey: obj.key,
+        },
+        attributes: ["id", "role", "status"],
+    }).then(function(user) {
+        done(null, user);
+    }).catch(function() {
+        done(new Error("User " + obj.id + " does not exist"));
+    });
 });
 
 passport.user = function(req, res, next) {

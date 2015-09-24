@@ -2,7 +2,7 @@ var chai = require("chai");
 var chaiHttp = require("chai-http");
 var model  = require("../../api/models");
 var bcrypt = require("bcrypt-nodejs");
-var api = require("supertest")("http://localhost:" + process.env.NODE_PORT);
+var api = require("supertest")("http://localhost:80");
 var expect = chai.expect;
 
 require("../../server");
@@ -103,5 +103,9 @@ describe("/api/users endpoint", function() {
 
     it("should respond to correct logout attempts", function(done) {
         api.post("/api/users/logout").expect(200, done);
+    });
+
+    it("should respond to /users/check as guest again", function(done) {
+        api.get("/api/users/check").expect(401, done);
     });
 });

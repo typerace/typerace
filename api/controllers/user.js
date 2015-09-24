@@ -15,17 +15,19 @@ router.post("/login", function(req, res, next) {
         req.login(userdata, function(error) {
             if (error) return res.status(401).send("Login failed.");
 
-            model.user.find({
-                where: {
-                    id: req.user.id,
-                },
-            }).then(function(user) {
-                if (!user) return res.status(500).send();
-                user.password = null;
-                return res.json(user);
-            });
+            req.user = userdata;
+            next();
         });
     })(req, res, next);
+}, function(req, res, next) {
+    req.user.update({
+        sessionkey: req.user.sessionkey || "",
+    }).then(function() {
+        next();
+    });
+}, function(req, res) {
+    req.user.password = null;
+    return res.json(req.user);
 });
 
 router.post("/logout", function(req, res, next) {
