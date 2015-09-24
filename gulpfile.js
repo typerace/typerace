@@ -122,7 +122,8 @@ gulp.task("test-api",  function () {
         timeout: 2000,
         useColors: true,
         useInlineDiffs: true
-    })).once('error', function () {
+    })).once('error', function (e) {
+        console.log(e.name, e.message);
         process.exit(1);
     }).once('end', function () {
         process.exit();

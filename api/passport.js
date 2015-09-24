@@ -44,12 +44,12 @@ passport.user = function(req, res, next) {
 
 passport.mod = function(req, res, next) {
     if (req.user && req.user.role === "mod") return next();
-    return res.status(401).send();
+    return res.status(403).send();
 };
 
 passport.admin = function(req, res, next) {
     if (req.user && req.user.role === "admin") return next();
-    return res.status(401).send();
+    return res.status(403).send();
 };
 
 module.exports = passport;
