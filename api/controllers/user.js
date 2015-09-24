@@ -35,7 +35,7 @@ router.post("/logout", function(req, res, next) {
         next();
     });
 }, function(req, res) {
-    return res.status(200).send();
+    return res.send();
 });
 
 router.post("/register", function(req, res, next) {

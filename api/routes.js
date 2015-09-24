@@ -14,7 +14,7 @@ module.exports = function(express, app, controller) {
 
     // Controllers
     app.use("/api/users", controller.user);
-    // app.use("/api/text", controller.text);
+    app.use("/api/texts", controller.text);
     // app.use("/api/race", controller.race);
     // app.use("/api/attempts", controller.attempts);
 
