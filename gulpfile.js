@@ -67,9 +67,6 @@ gulp.task("lint", function () {
 
         // tests
         "./tests/**/*.js",
-
-        // exclusions
-        "!./app/scripts/third/*.js",
     ])
         .pipe(eslint())
         .pipe(eslint.format())
@@ -83,7 +80,6 @@ gulp.task("js", ["lint"], function () {
             "./app/components/jquery/dist/jquery.js",
             "./app/components/moment/moment.js",
             "./app/components/angular/angular.js",
-            "./app/scripts/third/*.js",
 
             // BOOT
             "./app/scripts/boot.js",

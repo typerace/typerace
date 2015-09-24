@@ -11,6 +11,7 @@ module.exports = function(express, app, controller) {
     app.use("/img", express.static(path.join(__dirname, "../public/img")));
     app.use("/font", express.static(path.join(__dirname, "../public/font")));
     app.use("/template", express.static(path.join(__dirname, "../templates")));
+    app.use("/directive", express.static(path.join(__dirname, "../templates/directives")));
 
     // Controllers
     app.use("/api/users", controller.user);
