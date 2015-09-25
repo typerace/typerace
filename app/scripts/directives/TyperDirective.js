@@ -1,5 +1,5 @@
 directives.directive("typer", [
-    function() {
+    function () {
         return {
             restrict: "E",
             replace: true,

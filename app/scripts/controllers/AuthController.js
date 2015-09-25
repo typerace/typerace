@@ -1,6 +1,6 @@
 controllers.controller("AuthController", [
     "$log",
-    function($log) {
+    function ($log) {
         var vm = this;
         if (D.debug) $log.info("AuthController reporting in.");
 

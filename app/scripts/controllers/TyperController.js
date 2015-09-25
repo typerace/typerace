@@ -1,7 +1,7 @@
 controllers.controller("TyperController", [
     "$log",
     "$scope",
-    function($log, $scope) {
+    function ($log, $scope) {
         var vm = $scope;
         if (D.debug) $log.info("TyperController reporting in.");
 
@@ -11,7 +11,7 @@ controllers.controller("TyperController", [
 
         function parseText(text) {
             vm.text = text;
-            vm.words = text.split(" ").map(function(word) {
+            vm.words = text.split(" ").map(function (word) {
                 return {
                     word: word,
                     stage: 0,
@@ -20,7 +20,7 @@ controllers.controller("TyperController", [
         }
 
         vm.getText = function getText() {
-            return vm.words.map(function(word, index) {
+            return vm.words.map(function (word, index) {
                 return word.stage || index === vm.wordIndex ? "<span>" + word.word + "</span>" : word.word;
             }).join(" ");
         };

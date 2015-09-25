@@ -1,5 +1,5 @@
 typerace.config(["$stateProvider", "$urlRouterProvider", "$locationProvider",
-    function($stateProvider, $urlRouterProvider, $locationProvider) {
+    function ($stateProvider, $urlRouterProvider, $locationProvider) {
         // Default route
         $urlRouterProvider.otherwise("/");
 

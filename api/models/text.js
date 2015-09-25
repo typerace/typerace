@@ -1,5 +1,5 @@
 "use strict";
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
     var text = sequelize.define("text", {
         content: DataTypes.STRING,
         description: DataTypes.STRING,
@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
         underscored: true, // don"t camelcase
         tableName: "texts",
         classMethods: {
-            associate: function(model) {
+            associate: function (model) {
                 text.hasMany(model.race);
                 text.hasMany(model.run);
                 text.belongsTo(model.user);

@@ -1,7 +1,7 @@
 var path = require("path");
 var validator = require("express-validator");
 
-module.exports = function(express, app, controller) {
+module.exports = function (express, app, controller) {
     // Prepare the validator
     app.use(validator());
 
@@ -20,12 +20,12 @@ module.exports = function(express, app, controller) {
     // app.use("/api/attempts", controller.attempts);
 
     // root path
-    app.get("/", function(req, res) {
+    app.get("/", function (req, res) {
         res.sendFile(path.join(__dirname, "../templates", "index.html"));
     });
 
     // 404 catch-all
-    app.use(function(req, res) {
+    app.use(function (req, res) {
         res.redirect("/");
     });
 };

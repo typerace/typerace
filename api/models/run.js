@@ -1,5 +1,5 @@
 "use strict";
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
     var run = sequelize.define("run", {
         started: DataTypes.DATE,
         finished: DataTypes.DATE,
@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
         underscored: true, // don"t camelcase
         tableName: "runs",
         classMethods: {
-            associate: function(model) {
+            associate: function (model) {
                 run.belongsTo(model.user);
                 run.belongsTo(model.race);
                 run.belongsTo(model.text);

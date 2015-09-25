@@ -1,4 +1,4 @@
-(function() {
+(function () {
     // The Depot
     var D = $.extend(
         JSON.parse(localStorage.getItem("C")) || {
@@ -9,10 +9,10 @@
             },
             user: {},
         }, {
-            save: function() {
+            save: function () {
                 localStorage.setItem("D", JSON.stringify(D));
             },
-            load: function() {
+            load: function () {
                 D = JSON.parse(localStorage.getItem("D"));
             },
         }

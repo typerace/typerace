@@ -10,14 +10,14 @@ var db = new Sequelize(config.database, config.username, config.password, config
 
 var obj = {};
 
-fs.readdirSync(__dirname).map(function(file) {
+fs.readdirSync(__dirname).map(function (file) {
     var model;
     if (file.indexOf(".") === 0 || file === "index.js") return;
     model = db.import(path.join(__dirname, file));
     obj[model.name] = model;
 });
 
-Object.keys(obj).map(function(key) {
+Object.keys(obj).map(function (key) {
     if ("associate" in obj[key]) obj[key].associate(obj);
 });
 
