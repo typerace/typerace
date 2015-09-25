@@ -1,8 +1,6 @@
-var chai = require("chai");
 var model = require("../../api/models");
 var bcrypt = require("bcrypt-nodejs");
 var api = require("supertest")("http://localhost:" + process.env.NODE_PORT);
-var expect = chai.expect;
 require("../../server");
 
 describe("/api/users endpoint", function () {
@@ -79,13 +77,26 @@ describe("/api/users endpoint", function () {
             }).expect(400, done);
     });
 
-    it("should respond to correct login attempts", function (done) {
+    it("should respond to correct login attempts (registered user)", function (done) {
         api.post("/api/users/login")
             .send({
                 "email": "correct@gmail.com",
                 "password": "password1",
             }).expect(200)
-            .expect('typerace.sid')
+            .expect("typerace.sid")
+            .end(function (err, res) {
+                cookie = res.headers["set-cookie"];
+                done();
+            });
+    });
+
+    it("should respond to correct login attempts (inserted user)", function (done) {
+        api.post("/api/users/login")
+            .send({
+                "email": "test@test.test",
+                "password": "test",
+            }).expect(200)
+            .expect("typerace.sid")
             .end(function (err, res) {
                 cookie = res.headers["set-cookie"];
                 done();
