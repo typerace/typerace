@@ -1,16 +1,16 @@
 services.service("UserService", [
-    "$simple",
-    function ($simple) {
+    "$http",
+    function ($http) {
         this.login = function (input) {
-            return $simple.post(D.api.url + "/users/login", input);
+            return $http.post(D.api.url + "/users/magic", input);
         };
 
         this.logout = function () {
-            return $simple.post(D.api.url + "/users/logout", {});
+            return $http.post(D.api.url + "/users/logout", {});
         };
 
-        this.register = function (input) {
-            return $simple.post(D.api.url + "/users/register", input);
+        this.check = function () {
+            return $http.post(D.api.url + "/users/check", {});
         };
     },
 ]);

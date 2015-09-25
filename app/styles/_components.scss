@@ -31,6 +31,10 @@
     @include transition(width .2s ease-out);
   }
 
+  &.wide {
+    padding: 5px 40px;
+  }
+
   &.disabled, &:disabled {
     background: $grey-light;
     color: $grey-dark;

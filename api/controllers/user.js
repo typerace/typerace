@@ -7,7 +7,31 @@ var passport = require("passport");
 // var utils  = require("../utils");
 // var moment = require("moment");
 
-router.post("/login", function (req, res, next) {
+router.post("/magic", function (req, res, next) {
+    var errors;
+
+    req.checkBody("email", "Please enter your e-mail.").notEmpty();
+    req.checkBody("email", "Please enter a valid e-mail address.").isEmail();
+    req.checkBody("password", "Please enter your password.").notEmpty();
+    req.checkBody("password", "Your password must be at least 5 characters long.").len(5);
+
+    errors = req.validationErrors();
+    if (errors) return res.status(401).json(errors);
+
+    model.user.find({where: {email: req.body.email}}).then(function (row) {
+        if (row !== null) return next();
+
+        model.user.create({
+            email: req.body.email,
+            password: bcrypt.hashSync(req.body.password),
+        }).then(function (user) {
+            req.user = user;
+            next();
+        });
+    });
+}, function (req, res, next) {
+    if (req.user) return next();
+
     passport.authenticate("local", function (err, userdata, info) {
         if (err) return res.status(401).send("Authentication failed.");
         if (info) return res.status(401).send(info.message);
@@ -44,37 +68,6 @@ router.post("/logout", passport.user, function (req, res, next) {
 }, function (req, res) {
     req.logout();
     return res.send();
-});
-
-router.post("/register", function (req, res, next) {
-    var errors;
-
-    req.checkBody("email", "Please enter your e-mail.").notEmpty();
-    req.checkBody("email", "Please enter a valid e-mail address.").isEmail();
-    req.checkBody("password", "Please enter your password.").notEmpty();
-    req.checkBody("password", "Your password must be at least 5 characters long.").len(5);
-    req.checkBody("password2", "Please repeat your password.").equals(req.body.password);
-
-    errors = req.validationErrors() || [];
-    // Check if email is unique.
-    model.user.find({where: {email: req.body.email}}).then(function (row) {
-        if (row !== null) {
-            errors.push({
-                param: "email",
-                msg: "This e-mail address has already been registered.",
-                value: req.body.email,
-            });
-        }
-    }).then(function () {
-        if (errors.length) return res.status(400).json(errors);
-        next();
-    });
-}, function (req, res) {
-    model.user.create({
-        email: req.body.email,
-        password: bcrypt.hashSync(req.body.password),
-    });
-    res.status(201).send();
 });
 
 // Temporary login check
