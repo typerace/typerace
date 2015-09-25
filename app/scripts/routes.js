@@ -16,7 +16,7 @@ typerace.config(["$stateProvider", "$urlRouterProvider", "$locationProvider",
                 url: "/signin",
                 templateUrl: "template/auth.html",
                 controller: "AuthController",
-                controllerAs: "vm",
+                controllerAs: "ac",
             });
     },
 ]);

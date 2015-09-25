@@ -1,7 +1,7 @@
 <div class="typer">
     <div class="type-container">
         <div class="type-text" ng-bind-html="tr.getText()"></div>
-        <textarea class="type-area"></textarea>
+        <textarea class="type-area" ng-keypress="tr.check($event)"></textarea>
     </div>
     <div class="btn-container right">
         <a href="#" class="type-submit btn primary disabled silent">not finished yet...</a>

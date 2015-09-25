@@ -5,7 +5,7 @@
             debug: true,
             locale: "",
             api: {
-                url: "//" + window.location.hostname + "/api",
+                url: "//" + window.location.hostname + (window.location.port ? ":" + window.location.port : "") + "/api",
             },
             user: {},
         }, {

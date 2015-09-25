@@ -19,20 +19,21 @@ gulp.task("sass", ["sprites"], function () {
     del(["./app/styles/tmp/scss.css"]); // clear output file
     return gulp
         .src([
-            "./app/styles/global.scss"
+            "./app/styles/global.scss",
         ])
-        .pipe(sass({style: "compressed"}).on('error', util.log))
+        .pipe(sass({style: "compressed"}).on("error", util.log))
         .pipe(concat("scss.css"))
         .pipe(gulp.dest("./app/styles/tmp"));
 });
 
 gulp.task("sprites", function () {
+    var spriteData;
     del(["./app/styles/tmp/sprites.css"]); // clear output file
-    var spriteData = gulp.src("./app/sprites/*.png").pipe(spritesmith({
+    spriteData = gulp.src("./app/sprites/*.png").pipe(spritesmith({
         imgName: "sprite.png",
         cssName: "sprites.css",
         padding: 5,
-        imgPath: "../img/sprite.png"
+        imgPath: "../img/sprite.png",
     }));
     spriteData.img.pipe(imagemin()).pipe(gulp.dest("./public/img/"));
     return spriteData.css.pipe(gulp.dest("./app/styles/tmp"));
@@ -45,7 +46,7 @@ gulp.task("css", ["sass"], function () {
             "./app/components/normalize.css",
             "./app/components/pure/grids-min.css",
             "./app/components/pure/grids-responsive-min.css",
-            "./app/styles/tmp/*.css"
+            "./app/styles/tmp/*.css",
         ]
     )
         .pipe(concat("typerace.min.css"))
@@ -72,7 +73,7 @@ gulp.task("lint", function () {
         .pipe(eslint.format());
 });
 
-gulp.task("js", function () {
+gulp.task("js", ["lint"], function () {
     return gulp.src(
         [
             // LIBRARIES AND FRAMEWORKS
@@ -91,13 +92,16 @@ gulp.task("js", function () {
             "./app/components/angular-moment/angular-moment.min.js",
 
             // ANGULAR LOGIC
+            "./app/scripts/boot.js",
             "./app/scripts/app.js",
+            "./app/scripts/factories/*.js",
+            "./app/scripts/services/*.js",
             "./app/scripts/routes.js",
             "./app/scripts/**/*.js",
             "./app/scripts/*.js",
 
             // VENDOR SCRIPTS
-            "./app/components/cookieconsent2/cookieconsent.js"
+            "./app/components/cookieconsent2/cookieconsent.js",
         ]
     )
         .pipe(concat("typerace.js"))
@@ -113,25 +117,24 @@ gulp.task("test-api",  function () {
     process.env.NODE_ENV = "test";
     process.env.NODE_PORT = "9001";
 
-    return gulp.src('./tests/api/*.js', {read: false}).pipe(mocha({
+    return gulp.src("./tests/api/*.js", {read: false}).pipe(mocha({
         timeout: 2000,
         useColors: true,
-        useInlineDiffs: true
-    })).once('error', function (e) {
-        console.log(e.name, e.message);
+        useInlineDiffs: true,
+    })).once("error", function (err) {
+        util.log(err.name, err.message);
         process.exit(1);
-    }).once('end', function () {
+    }).once("end", function () {
         process.exit();
     });
 });
 
 // Run tasks
-gulp.task("default", ["js", "css", "lint"], function () {
-    console.log("Build complete!");
+gulp.task("default", ["js", "css"], function () {
+    util.log("Build complete!");
 });
 
 gulp.task("watch", ["default"], function () {
     gulp.watch("./app/styles/**/*", ["css"]);
     gulp.watch("./app/scripts/**/*", ["js"]);
-    gulp.watch("./app/scripts/**/*", ["lint"]);
 });

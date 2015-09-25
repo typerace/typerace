@@ -1,17 +1,17 @@
 <div id="auth" ng-cloak>
     <label for="email">Email</label>
-    <input type="email" id="email" name="email">
+    <input type="email" id="email" name="email" ng-model="ac.temp.email">
 
     <label for="password">Password</label>
-    <input type="password" id="password" name="password">
+    <input type="password" id="password" name="password" ng-model="ac.temp.password">
 
-    <div ng-show="state === 'registration'">
+    <div ng-show="ac.state === 'register'">
         <label for="password2">Confirm password</label>
-        <input type="password" id="password2" name="password2">
+        <input type="password" id="password2" name="password2" ng-model="ac.temp.password2">
     </div>
 
     <div class="btn-container right">
-        <a href="#" class="btn primary">Sign in</a>
-        <a href="#" class="btn secondary">Sign up</a>
+        <a href="#" class="btn primary" ng-click="ac.login()">Sign in</a>
+        <a href="#" class="btn secondary" ng-click="ac.register()">Sign up</a>
     </div>
 </div>
