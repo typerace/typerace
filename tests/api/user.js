@@ -1,12 +1,9 @@
 var chai = require("chai");
-var chaiHttp = require("chai-http");
 var model = require("../../api/models");
 var bcrypt = require("bcrypt-nodejs");
 var api = require("supertest")("http://localhost:" + process.env.NODE_PORT);
 var expect = chai.expect;
-
 require("../../server");
-chai.use(chaiHttp);
 
 describe("/api/users endpoint", function () {
     var mock = {
@@ -87,11 +84,9 @@ describe("/api/users endpoint", function () {
             .send({
                 "email": "correct@gmail.com",
                 "password": "password1",
-            })
+            }).expect(200)
+            .expect('typerace.sid')
             .end(function (err, res) {
-                expect(err).to.be.null;
-                expect(res).to.have.cookie("typerace.sid");
-                expect(res).to.have.status(200);
                 cookie = res.headers["set-cookie"];
                 done();
             });

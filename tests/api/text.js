@@ -1,10 +1,9 @@
 var chai = require("chai");
-var chaiHttp = require("chai-http");
-var server = require("../../server");
 var model = require("../../api/models");
 var bcrypt = require("bcrypt-nodejs");
+var api = require("supertest")("http://localhost:" + process.env.NODE_PORT);
 var expect = chai.expect;
-chai.use(chaiHttp);
+require("../../server");
 
 describe("/api/texts endpoint", function () {
     var mock = {
@@ -28,17 +27,16 @@ describe("/api/texts endpoint", function () {
         });
         model.user.create(mock.user);
 
-
-        chai.request(server)
-            .post("/api/users/login")
+        api.post("/api/users/login")
             .send({
-                "email": mock.admin.email,
-                "password": "admin",
+                "email": mock.user.email,
+                "password": "user",
             })
             .end(function (err, res) {
-                cookies.admin = res.headers["set-cookie"];
+                cookies.user = res.headers["set-cookie"];
                 done();
             });
+
     });
 
     // TEARDOWN
@@ -50,13 +48,6 @@ describe("/api/texts endpoint", function () {
     });
 
     it("should respond to /texts as user", function (done) {
-        chai.request(server)
-            .get("/api/texts")
-            .set("cookie", cookies.user)
-            .end(function (err, res) {
-                expect(err).to.be.null;
-                expect(res).to.have.status(403);
-                done();
-            });
+        api.get("/api/texts").set("cookie", cookies.user).expect(401, done);
     });
 });
