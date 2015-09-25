@@ -69,11 +69,10 @@ gulp.task("lint", function () {
         "./tests/**/*.js",
     ])
         .pipe(eslint())
-        .pipe(eslint.format())
-        .pipe(eslint.failOnError());
+        .pipe(eslint.format());
 });
 
-gulp.task("js", ["lint"], function () {
+gulp.task("js", function () {
     return gulp.src(
         [
             // LIBRARIES AND FRAMEWORKS
@@ -127,11 +126,12 @@ gulp.task("test-api",  function () {
 });
 
 // Run tasks
-gulp.task("default", ["js", "css"], function () {
+gulp.task("default", ["js", "css", "lint"], function () {
     console.log("Build complete!");
 });
 
 gulp.task("watch", ["default"], function () {
     gulp.watch("./app/styles/**/*", ["css"]);
     gulp.watch("./app/scripts/**/*", ["js"]);
+    gulp.watch("./app/scripts/**/*", ["lint"]);
 });

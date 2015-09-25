@@ -31,20 +31,4 @@ typerace = angular.module("typerace", [
      */
 
     // $(".modal-trigger").leanModal();
-
-    (function () {
-        var header = document.querySelector("header");
-
-        function getScrollTop() {
-            return (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
-        }
-
-        $(window).on("scroll.header", function () {
-            var scrollTop = getScrollTop();
-            var contains = header.classList.contains("scrolled");
-
-            if (scrollTop > 10 && !contains) header.classList.add("scrolled");
-            else if (scrollTop <= 10 && contains) header.classList.remove("scrolled");
-        });
-    })();
 });
