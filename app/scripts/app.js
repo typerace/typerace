@@ -15,8 +15,8 @@ typerace = angular.module("typerace", [
     "factories",
     "directives",
     "controllers",
-]).run(function($templateCache, $http, $timeout, $rootScope, amMoment) {
-    $rootScope.$on("$stateChangeSuccess", function() {
+]).run(function ($templateCache, $http, $timeout, $rootScope, amMoment) {
+    $rootScope.$on("$stateChangeSuccess", function () {
         document.body.scrollTop = document.documentElement.scrollTop = 0;
     });
 
@@ -25,21 +25,21 @@ typerace = angular.module("typerace", [
     // $translate.use(C.locale || navigator.language.split("-")[0]);
 
     /* preload templates
-    $timeout(function() {
-         $http.get("front/page/home", {cache:$templateCache});
-    }, 200);
-    */
+     $timeout(function() {
+     $http.get("front/page/home", {cache:$templateCache});
+     }, 200);
+     */
 
     // $(".modal-trigger").leanModal();
 
-    (function() {
+    (function () {
         var header = document.querySelector("header");
 
         function getScrollTop() {
             return (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
         }
 
-        $(window).on("scroll.header", function() {
+        $(window).on("scroll.header", function () {
             var scrollTop = getScrollTop();
             var contains = header.classList.contains("scrolled");
 
