@@ -7,7 +7,7 @@ var passport = require("passport");
 // var utils  = require("../utils");
 // var moment = require("moment");
 
-router.post("/magic", function (req, res, next) {
+router.post("/login", function (req, res, next) {
     var errors;
 
     req.checkBody("email", "Please enter your e-mail.").notEmpty();
@@ -16,7 +16,7 @@ router.post("/magic", function (req, res, next) {
     req.checkBody("password", "Your password must be at least 5 characters long.").len(5);
 
     errors = req.validationErrors();
-    if (errors) return res.status(401).json(errors);
+    if (errors) return res.status(400).json(errors);
 
     model.user.find({where: {email: req.body.email}}).then(function (row) {
         if (row !== null) return next();
@@ -24,14 +24,11 @@ router.post("/magic", function (req, res, next) {
         model.user.create({
             email: req.body.email,
             password: bcrypt.hashSync(req.body.password),
-        }).then(function (user) {
-            req.user = user;
+        }).then(function () {
             next();
         });
     });
 }, function (req, res, next) {
-    if (req.user) return next();
-
     passport.authenticate("local", function (err, userdata, info) {
         if (err) return res.status(401).send("Authentication failed.");
         if (info) return res.status(401).send(info.message);

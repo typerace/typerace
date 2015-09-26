@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "ap": "node server -p 3000",
+    "ap": "NODE_PORT=3000 node server",
     "build": "npm install && bower install && gulp"
   },
   "repository": {

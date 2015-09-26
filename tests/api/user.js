@@ -33,51 +33,15 @@ describe("/api/users endpoint", function () {
         api.get("/api/users/check").expect(401, done);
     });
 
-    it("should respond to incorrect login attempts", function (done) {
-        api.post("/api/users/login")
-            .send({
-                "email": "incorrect@email.com",
-                "password": "password",
-            }).expect(401, done);
-    });
-
     it("should respond to incorrect registration attempts", function (done) {
-        api.post("/api/users/register")
+        api.post("/api/users/login")
             .send({
                 "email": "incorrectemail",
                 "password": "password",
-                "password2": "password",
             }).expect(400, done);
     });
-
-    it("should respond to incomplete registration attempts", function (done) {
-        api.post("/api/users/register")
-            .send({
-                "email": "incorrect@email.com",
-                "password": "password",
-            }).expect(400, done);
-    });
-
 
     it("should respond to correct registration attempts", function (done) {
-        api.post("/api/users/register")
-            .send({
-                "email": "correct@gmail.com",
-                "password": "password1",
-                "password2": "password1",
-            }).expect(201, done);
-    });
-
-    it("should respond to duplicate registration attempts", function (done) {
-        api.post("/api/users/register")
-            .send({
-                "email": "correct@gmail.com",
-                "password": "password1",
-                "password2": "password1",
-            }).expect(400, done);
-    });
-
-    it("should respond to correct login attempts (registered user)", function (done) {
         api.post("/api/users/login")
             .send({
                 "email": "correct@gmail.com",
@@ -90,11 +54,23 @@ describe("/api/users endpoint", function () {
             });
     });
 
-    it("should respond to correct login attempts (inserted user)", function (done) {
+    it("should respond to /users/check as registered user after registration", function (done) {
+        api.get("/api/users/check").set("cookie", cookie).expect(200, done);
+    });
+
+    it("should respond to incorrect login attempts", function (done) {
         api.post("/api/users/login")
             .send({
-                "email": "test@test.test",
-                "password": "test",
+                "email": "correct@gmail.com",
+                "password": "incorrectpassword",
+            }).expect(401, done);
+    });
+
+    it("should respond to correct login attempts", function (done) {
+        api.post("/api/users/login")
+            .send({
+                "email": "correct@gmail.com",
+                "password": "password1",
             }).expect(200)
             .expect("typerace.sid")
             .end(function (err, res) {
@@ -103,7 +79,7 @@ describe("/api/users endpoint", function () {
             });
     });
 
-    it("should respond to /users/check as user", function (done) {
+    it("should respond to /users/check as registered user", function (done) {
         api.get("/api/users/check").set("cookie", cookie).expect(200, done);
     });
 

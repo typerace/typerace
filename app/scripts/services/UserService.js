@@ -2,7 +2,7 @@ services.service("UserService", [
     "$http",
     function ($http) {
         this.login = function (input) {
-            return $http.post(D.api.url + "/users/magic", input);
+            return $http.post(D.api.url + "/users/login", input);
         };
 
         this.logout = function () {
