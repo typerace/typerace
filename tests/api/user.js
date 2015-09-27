@@ -7,18 +7,20 @@ describe("/api/users endpoint", function () {
     var mock = {
         user: {
             email: "test@test.test",
-            password: bcrypt.hashSync("test"),
+            password: bcrypt.hashSync("test1"),
         },
     };
     var cookie;
 
     // SETUP
-    before("prepare a test user", function () {
+    before("prepare a test user", function (done) {
         model.user.destroy({
             truncate: true,
             force: true,
         });
-        model.user.create(mock.user);
+        model.user.create(mock.user).then(function () {
+            done();
+        });
     });
 
     // TEARDOWN
@@ -38,7 +40,7 @@ describe("/api/users endpoint", function () {
             .send({
                 "email": "incorrectemail",
                 "password": "password",
-            }).expect(400, done);
+            }).expect(401, done);
     });
 
     it("should respond to correct registration attempts", function (done) {
@@ -80,6 +82,32 @@ describe("/api/users endpoint", function () {
     });
 
     it("should respond to /users/check as registered user", function (done) {
+        api.get("/api/users/check").set("cookie", cookie).expect(200, done);
+    });
+
+    it("should respond to correct logout attempts", function (done) {
+        api.post("/api/users/logout").set("cookie", cookie).expect(200, done);
+    });
+
+    it("should respond to /users/check as guest again", function (done) {
+        api.get("/api/users/check").set("cookie", cookie).expect(401, done);
+    });
+
+    it("should respond to correct login attempts (inserted)", function (done) {
+        api.post("/api/users/login")
+            .send({
+                email: "test@test.test",
+                password: "test1",
+            })
+            .expect(200)
+            .expect("typerace.sid")
+            .end(function (err, res) {
+                cookie = res.headers["set-cookie"];
+                done();
+            });
+    });
+
+    it("should respond to /users/check as inserted user", function (done) {
         api.get("/api/users/check").set("cookie", cookie).expect(200, done);
     });
 

@@ -16,7 +16,7 @@ router.post("/login", function (req, res, next) {
     req.checkBody("password", "Your password must be at least 5 characters long.").len(5);
 
     errors = req.validationErrors();
-    if (errors) return res.status(400).json(errors);
+    if (errors) return res.status(401).json(errors);
 
     model.user.find({where: {email: req.body.email}}).then(function (row) {
         if (row !== null) return next();
