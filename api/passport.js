@@ -51,7 +51,7 @@ passport.user = function (req, res, next) {
 };
 
 passport.mod = function (req, res, next) {
-    if (req.user && req.user.role === "mod") return next();
+    if (req.user && req.user.role === "mod" && req.user.status !== "banned") return next();
     return res.status(403).send();
 };
 
