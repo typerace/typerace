@@ -7,11 +7,11 @@ describe("/api/texts endpoint", function () {
     var mock = {
         user: {
             email: "user@test.test",
-            password: bcrypt.hashSync("user"),
+            password: "user",
         },
         admin: {
             email: "admin@test.test",
-            password: bcrypt.hashSync("admin"),
+            password: "admin",
             role: "admin",
         },
     };

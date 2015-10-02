@@ -1,7 +1,6 @@
 var express = require("express");
 var router = express.Router();
 var model = require("../models");
-var bcrypt = require("bcrypt-nodejs");
 var passport = require("passport");
 // var mailer = require("../config/mailer.js");
 // var utils  = require("../utils");
@@ -23,7 +22,7 @@ router.post("/login", function (req, res, next) {
 
         model.user.create({
             email: req.body.email,
-            password: bcrypt.hashSync(req.body.password),
+            password: req.body.password,
         }).then(function () {
             next();
         });
@@ -47,8 +46,7 @@ router.post("/login", function (req, res, next) {
         next();
     });
 }, function (req, res) {
-    req.user.password = null;
-    return res.json(req.user);
+    return res.json(req.user.sanitize());
 });
 
 router.post("/logout", passport.user, function (req, res, next) {
@@ -69,7 +67,7 @@ router.post("/logout", passport.user, function (req, res, next) {
 
 // Temporary login check
 router.get("/check", passport.user, function (req, res) {
-    res.send();
+    res.json(req.user.sanitize());
 });
 
 module.exports = router;

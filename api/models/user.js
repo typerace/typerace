@@ -1,10 +1,17 @@
 "use strict";
+var bcrypt = require("bcrypt-nodejs");
+
 module.exports = function (sequelize, DataTypes) {
     var user = sequelize.define("user", {
         name: DataTypes.STRING,
         sessionkey: DataTypes.STRING,
         email: DataTypes.STRING,
-        password: DataTypes.STRING,
+        password: {
+            type: DataTypes.STRING,
+            set: function (password) {
+                this.setDataValue("password", bcrypt.hashSync(password));
+            },
+        },
         customer: DataTypes.STRING,
         location: DataTypes.STRING,
         dob: DataTypes.DATE,
@@ -28,6 +35,15 @@ module.exports = function (sequelize, DataTypes) {
                 user.hasMany(model.text);
                 user.hasMany(model.run);
                 // Needs bindings for wins and held koth
+            },
+        },
+        instanceMethods: {
+            sanitize: function () {
+                this.password = null;
+                return this;
+            },
+            verifyPassword: function (password) {
+                return bcrypt.compareSync(password, this.password);
             },
         },
     });

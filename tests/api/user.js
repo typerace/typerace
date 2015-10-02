@@ -7,7 +7,7 @@ describe("/api/users endpoint", function () {
     var mock = {
         user: {
             email: "test@test.test",
-            password: bcrypt.hashSync("test1"),
+            password: "test1",
         },
     };
     var cookie;

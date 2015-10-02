@@ -15,7 +15,7 @@ passport.use(new LocalStrategy(
             .then(function (user) {
                 if (!user)
                     return done(null, false, {message: "The user does not exist"});
-                if (!bcrypt.compareSync(password, user.password))
+                if (!user.verifyPassword(password))
                     return done(null, false, {message: "Wrong password"});
 
                 user.sessionkey = util.generateHash(3);
