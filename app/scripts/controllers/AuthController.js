@@ -1,6 +1,6 @@
 controllers.controller("AuthController", [
-    "$scope", "$log", "UserService",
-    function ($scope, $log, UserService) {
+    "$rootScope", "$scope", "$log", "UserService", "$state",
+    function ($rootScope, $scope, $log, UserService, $state) {
         var ac = this;
         if (D.debug) $log.info("AuthController reporting in.");
 
@@ -19,10 +19,9 @@ controllers.controller("AuthController", [
             UserService.login({
                 email: ac.temp.email,
                 password: ac.temp.password,
-            }).then(function (data) {
-                $log.log("logged in");
-                $log.log(data);
-                // angular ui router
+            }).then(function (user) {
+                $rootScope.$emit("user.action", user);
+                $state.go("home");
             }, function (error) {
                 $log.error("error");
                 $log.log(error);

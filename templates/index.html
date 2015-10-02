@@ -27,7 +27,8 @@
         <div class="pure-u-1 pure-u-md-3-8 no-mobile align right">
             <a class="btn" href="#" ui-sref="home"><i>play_arrow</i>Practice</a>
             <a class="btn secondary" href="#" ui-sref="home"><i>language</i>Race</a>
-            <a class="btn" href="#" ui-sref="auth"><i>face</i>Sign in</a>
+            <a class="btn" href="#" ui-sref="auth" ng-show="!hc.loggedIn"><i>face</i>Sign in</a>
+            <a class="btn" href="#" ui-sref="profile" ng-show="hc.loggedIn"><i>face</i>Profile</a>
         </div>
     </div>
 </header>

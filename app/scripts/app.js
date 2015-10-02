@@ -31,4 +31,13 @@ typerace = angular.module("typerace", [
      */
 
     // $(".modal-trigger").leanModal();
+
+    $rootScope.$on("user.action", function (user) {
+        $rootScope.user = user;
+        $rootScope.$emit("user.logged", !!user);
+    });
+
+    $http.get(D.api.url + "/users/check").then(function (user) {
+        $rootScope.$emit("user.action", user);
+    });
 });

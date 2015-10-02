@@ -5,6 +5,7 @@ controllers.controller("HeaderController", [
         if (D.debug) $log.info("HeaderController reporting in.");
 
         hc.scrolledClass = false;
+        hc.loggedIn = false;
 
         function getScrollTop() {
             return (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
@@ -13,6 +14,10 @@ controllers.controller("HeaderController", [
         angular.element($window).on("scroll", function () {
             hc.scrolledClass = getScrollTop() > 10;
             $scope.$apply();
+        });
+
+        $rootScope.$on("user.logged", function (loggedIn) {
+            hc.loggedIn = loggedIn;
         });
     },
 ]);
