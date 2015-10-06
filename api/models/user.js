@@ -45,6 +45,9 @@ module.exports = function (sequelize, DataTypes) {
             verifyPassword: function (password) {
                 return bcrypt.compareSync(password, this.password);
             },
+            access: function (levels) {
+                return this.status !== "banned" && levels.indexOf(this.role) !== -1;
+            },
         },
     });
 

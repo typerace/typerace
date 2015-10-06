@@ -47,7 +47,8 @@ describe("/api/users endpoint", function () {
             .send({
                 "email": "correct@gmail.com",
                 "password": "password1",
-            }).expect(200)
+            })
+            .expect(200)
             .expect("typerace.sid")
             .end(function (err, res) {
                 cookie = res.headers["set-cookie"];
@@ -72,7 +73,8 @@ describe("/api/users endpoint", function () {
             .send({
                 "email": "correct@gmail.com",
                 "password": "password1",
-            }).expect(200)
+            })
+            .expect(200)
             .expect("typerace.sid")
             .end(function (err, res) {
                 cookie = res.headers["set-cookie"];

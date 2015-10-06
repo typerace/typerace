@@ -1,12 +1,26 @@
 "use strict";
+var utils = require("../utils");
+
 module.exports = function (sequelize, DataTypes) {
     var text = sequelize.define("text", {
-        content: DataTypes.STRING,
+        content: {
+            type: DataTypes.STRING,
+            set: function (content) {
+                var formatted = utils.text.formatSaved(content);
+                var difficulty = utils.text.measureDifficulty(formatted);
+
+                this.setDataValue("content", formatted);
+                this.setDataValue("difficulty", difficulty);
+            },
+            get: function () {
+                utils.text.formatText(this.getDataValue("content"));
+            },
+        },
         description: DataTypes.STRING,
         difficulty: DataTypes.INTEGER,
         wpm_avg: DataTypes.DECIMAL,
         wpm_top: DataTypes.DECIMAL,
-        status: DataTypes.ENUM("hidden", "public"),
+        status: DataTypes.ENUM("hidden", "public", "pending"),
         source_name: DataTypes.STRING,
         source_author: DataTypes.STRING,
         source_link: DataTypes.STRING,
