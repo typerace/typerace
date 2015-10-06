@@ -8,6 +8,7 @@ directives.directive("typer", [
             controllerAs: "tr",
             scope: {
                 mode: "@",
+                text: "@",
             },
         };
     },

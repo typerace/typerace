@@ -2,13 +2,12 @@
   display: block;
   padding: 10px;
   margin: 0 auto;
-  background: $primary;
+  background: $clr-blue-grey-300;
   max-width: 520px;
 
   .type-container {
     display: block;
     position: relative;
-    background: lighten($primary, 5%);
 
     .type-text, .type-area {
       display: block;

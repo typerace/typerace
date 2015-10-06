@@ -1,4 +1,5 @@
 <div class="typer">
+    <article>{{ text }}</article>
     <div class="type-container">
         <div class="type-text" ng-bind-html="tr.getText()"></div>
         <textarea class="type-area" ng-keypress="tr.check($event)"></textarea>
