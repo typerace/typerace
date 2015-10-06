@@ -1,6 +1,9 @@
-$tablet: 767px;
-$desktop: 1025px;
-$desktop-large: 1300px;
+$breakpoints: (
+  "sm": 568px,
+  "md": 768px,
+  "lg": 1024px,
+  "xl": 1280px,
+);
 
 $header-height: 60px;
 
@@ -12,13 +15,3 @@ $blue-background: #f3f3f9;
 $primary: #477ab9;
 $secondary: #ff9254;
 $tertiary: #5d51c1;
-
-$primary-light: lighten($primary, 5%);
-$primary-dark: darken($primary, 5%);
-$primary-darker: darken($primary, 15%);
-$secondary-light: lighten($secondary, 5%);
-$secondary-dark: darken($secondary, 5%);
-$secondary-darker: darken($secondary, 15%);
-$tertiary-light: lighten($tertiary, 5%);
-$tertiary-dark: darken($tertiary, 5%);
-$tertiary-darker: darken($tertiary, 15%);

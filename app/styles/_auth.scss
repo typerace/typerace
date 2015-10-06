@@ -17,8 +17,8 @@
     margin: 5px 0 15px;
     width: 100%;
     background: $blue-background;
-    color: $primary-darker;
-    border: 2px solid $primary-light;
+    color: darken($primary, 10%);
+    border: 2px solid lighten($primary, 5%);
     outline: none;
 
     @include font-strong;

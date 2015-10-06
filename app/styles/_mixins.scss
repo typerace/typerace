@@ -69,10 +69,18 @@
 
 // Media
 
-@mixin tablet { @media screen and (min-width: $tablet) { @content; } }
-@mixin desktop { @media screen and (min-width: $desktop) { @content; } }
-@mixin desktop-large { @media screen and (min-width: $desktop-large) { @content; } }
+@mixin sm {
+  @media screen and (min-width: map-get($breakpoints, "sm")) {@content;}
+}
 
-@mixin only-mobile { @media screen and (max-width: $tablet - 1px) { @content; } }
-@mixin only-tablet { @media screen and (min-width: $tablet) and (max-width: $desktop - 1px) { @content; } }
-@mixin only-mobile-and-tablet { @media screen and (max-width: $desktop - 1px) { @content; } }
+@mixin md {
+  @media screen and (min-width: map-get($breakpoints, "md")) {@content;}
+}
+
+@mixin lg {
+  @media screen and (min-width: map-get($breakpoints, "lg")) {@content;}
+}
+
+@mixin xl {
+  @media screen and (min-width: map-get($breakpoints, "xl")) {@content;}
+}

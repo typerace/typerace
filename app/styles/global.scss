@@ -9,22 +9,15 @@
 @import "components";
 
 // Local imports
+@import "keyframes";
 @import "header";
 @import "footer";
 @import "home";
 @import "auth";
 @import "typer";
 
-
-@include keyframes(caret) {
-  0% { opacity: 1; }
-  40% { opacity: 1; }
-  60% { opacity: 0; }
-  100% { opacity: 0; }
-}
-
 * {
-  @include vendorKey(box-sizing, border-box);
+  box-sizing: border-box;
 }
 
 body {
@@ -115,10 +108,4 @@ section {
   &.left { text-align: left; }
   &.center { text-align: center; }
   &.right { text-align: right; }
-}
-
-@include only-mobile {
-  .no-mobile {
-    display: none !important;
-  }
 }
