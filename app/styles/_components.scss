@@ -3,7 +3,7 @@
   position: relative;
   padding: 5px 20px;
   margin: 0;
-  color: $white;
+  color: $clr-red;
   overflow: hidden;
 
   @include transition(background .1s ease-in-out);
@@ -36,9 +36,8 @@
   }
 
   &.disabled, &:disabled {
-    background: $grey-light;
-    color: $grey-dark;
-
+    background: $clr-blue-grey-300;
+    color: $clr-blue-grey-600;
     &.silent {
       cursor: default;
       background: rgba(0, 0, 0, 0.05);
@@ -48,7 +47,7 @@
 
   &:not(:disabled):not(.disabled) {
     &:hover {
-      background: $blue-pastel;
+      background: $clr-light-blue;
       &:after {
         display: block;
         @include animation(caret 1s infinite);
@@ -64,14 +63,14 @@
     }
 
     &.primary {
-      color: $white;
+      color: $clr-white;
       background: $primary;
       @include font-strong;
       &:hover { background: $primary-light; }
     }
 
     &.secondary {
-      color: $white;
+      color: $clr-white;
       background: $secondary;
       @include font-strong;
       &:after { background: rgba(0, 0, 0, 0.2); }

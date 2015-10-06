@@ -1,14 +1,20 @@
+// External imports
+@import "../components/material-color/material-color.scss";
+
+// Internal imports
 @import "variables";
 @import "mixins";
 @import "icons";
 @import "sections";
 @import "components";
+
+// Local imports
 @import "header";
 @import "footer";
 @import "home";
 @import "auth";
-
 @import "typer";
+
 
 @include keyframes(caret) {
   0% { opacity: 1; }
@@ -24,8 +30,8 @@
 body {
   padding-top: $header-height;
   line-height: 1.7em;
-  background: $grey-light;
-  color: $grey-darkest;
+  background: $clr-grey-100;
+  color: $clr-grey-800;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
@@ -45,7 +51,6 @@ a {
 p {
   font-family: $roboto;
   font-size: 14px;
-  color: $grey-darker;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -73,7 +78,6 @@ h4 {
 }
 
 h5 {
-  color: $grey-dark;
   font-weight: 500;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -89,7 +93,6 @@ ul {
 
 em {
   font-style: normal;
-  color: $green;
   font-weight: 700;
 }
 
@@ -99,7 +102,7 @@ section {
     margin-top: 50px;
   }
   &.white {
-    background: $white;
+    background: $clr-white;
   }
 }
 

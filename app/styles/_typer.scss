@@ -27,7 +27,7 @@
     .type-text {
       color: $primary-darker;
       span {
-        color: $black;
+        color: $clr-black;
       }
     }
 
@@ -40,7 +40,7 @@
       resize: none;
       background: none;
       border: none;
-      color: $white;
+      color: $clr-white;
       outline: none;
     }
   }
