@@ -90,7 +90,7 @@ em {
 section {
   position: relative;
   &.padded {
-    margin-top: 50px;
+    margin: 50px auto;
   }
   &.white {
     background: $clr-white;
