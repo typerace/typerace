@@ -1,26 +1,26 @@
 controllers.controller("AuthController", [
     "$rootScope", "$scope", "$log", "UserService", "$state",
     function ($rootScope, $scope, $log, UserService, $state) {
-        var ac = this;
+        var vm = this;
         if (D.debug) $log.info("AuthController reporting in.");
 
-        ac.user = D.user;
-        ac.processing = false;
-        ac.form = {};
+        vm.user = D.user;
+        vm.processing = false;
+        vm.form = {};
 
-        ac.state = "login";
-        ac.temp = {
+        vm.state = "login";
+        vm.temp = {
             email: "",
             password: "",
             password2: "",
         };
 
-        ac.login = function () {
+        vm.login = function () {
             UserService.login({
-                email: ac.temp.email,
-                password: ac.temp.password,
+                email: vm.temp.email,
+                password: vm.temp.password,
             }).then(function (user) {
-                $rootScope.$emit("user.action", user);
+                $rootScope.$emit("user.vmtion", user);
                 $state.go("home");
             }, function (error) {
                 $log.error("error");
