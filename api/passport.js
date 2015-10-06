@@ -1,6 +1,5 @@
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
-var bcrypt = require("bcrypt-nodejs");
 var model = require("./models");
 var util = require("./utils");
 

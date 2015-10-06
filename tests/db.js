@@ -1,3 +1,4 @@
+/*
 var model = require("../api/models");
 var bcrypt = require("bcrypt-nodejs");
 
@@ -30,9 +31,6 @@ module.exports = {
                 console.log('user table pulled up');
             }
         );
-
-
-
     },
     teardown: function () {
         // Trunc all tables
@@ -48,3 +46,4 @@ module.exports = {
         this.pullup();
     }
 };
+*/

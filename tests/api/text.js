@@ -1,5 +1,4 @@
 var model = require("../../api/models");
-var bcrypt = require("bcrypt-nodejs");
 var api = require("supertest")("http://localhost:" + process.env.NODE_PORT);
 require("../../server");
 
