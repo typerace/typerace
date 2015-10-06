@@ -26,8 +26,7 @@ body {
   color: $clr-grey-800;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  @include font-normal;
+  font-weight: 400;
 }
 
 a {
