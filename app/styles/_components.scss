@@ -47,7 +47,7 @@
 
   &:not(:disabled):not(.disabled) {
     &:hover {
-      background: $clr-light-blue;
+      background: $clr-light-blue-800;
       &:after {
         display: block;
         @include animation(caret 1s infinite);
@@ -64,9 +64,11 @@
 
     &.primary {
       color: $clr-white;
-      background: $primary;
+      background: $clr-light-blue-900;
       @include font-strong;
-      &:hover { background: lighten($primary, 5%); }
+      &:hover {
+        background: $clr-light-blue-800;
+      }
     }
 
     &.secondary {
