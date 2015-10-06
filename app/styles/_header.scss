@@ -4,20 +4,20 @@ header {
   top: 0;
   left: 0;
   z-index: 10;
-  height: $header-height;
+  height: 60px;
   width: 100%;
-  background: $primary;
+  background: $clr-light-blue-900;
   padding: 5px 10px;
   cursor: default;
 
   @include transition(box-shadow .2s ease-in-out);
 
   &.scrolled {
-    @include vendorKey(box-shadow, 0 1px 3px rgba(0, 0, 0, 0.3));
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   }
-
   .btn {
     margin-top: 5px;
+    color: $clr-grey-100;
   }
 }
 
