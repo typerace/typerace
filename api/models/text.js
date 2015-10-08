@@ -6,14 +6,10 @@ module.exports = function (sequelize, DataTypes) {
         content: {
             type: DataTypes.STRING,
             set: function (content) {
-                var formatted = utils.text.formatSaved(content);
-                var difficulty = utils.text.measureDifficulty(formatted);
+                var difficulty = utils.text.measureDifficulty( utils.text.formatText(content) );
 
-                this.setDataValue("content", formatted);
+                this.setDataValue("content", content);
                 this.setDataValue("difficulty", difficulty);
-            },
-            get: function () {
-                utils.text.formatText(this.getDataValue("content"));
             },
         },
         description: DataTypes.STRING,

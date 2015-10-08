@@ -23,8 +23,14 @@ module.exports = function (sequelize, DataTypes) {
         useragent: DataTypes.STRING,
         wpm_avg: DataTypes.DECIMAL,
         wpm_top: DataTypes.DECIMAL,
-        role: DataTypes.ENUM("user", "mod", "admin"),
-        status: DataTypes.ENUM("normal", "banned", "premium"),
+        role: {
+            type: DataTypes.ENUM("user", "mod", "admin"),
+            defaultValue: "user",
+        },
+        status: {
+            type: DataTypes.ENUM("normal", "banned", "premium"),
+            defaultValue: "normal",
+        },
     }, {
         paranoid: true, // use deleted-at
         underscored: true, // don"t camelcase

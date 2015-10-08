@@ -1,5 +1,7 @@
 var model = require("../../api/models");
 var api = require("supertest")("http://localhost:" + process.env.NODE_PORT);
+var expect = require("chai").expect;
+var cookies = require("../cookies");
 require("../../server");
 
 describe("/api/users endpoint", function () {
@@ -49,10 +51,12 @@ describe("/api/users endpoint", function () {
                 "password": "password1",
             })
             .expect(200)
-            .expect("typerace.sid")
+            .expect(cookies("typerace.sid"))
             .end(function (err, res) {
+                console.log(res.cookies);
+
                 cookie = res.headers["set-cookie"];
-                done();
+                done(err);
             });
     });
 
@@ -75,10 +79,10 @@ describe("/api/users endpoint", function () {
                 "password": "password1",
             })
             .expect(200)
-            .expect("typerace.sid")
+            .expect(cookies("typerace.sid"))
             .end(function (err, res) {
                 cookie = res.headers["set-cookie"];
-                done();
+                done(err);
             });
     });
 
@@ -101,10 +105,10 @@ describe("/api/users endpoint", function () {
                 password: "test1",
             })
             .expect(200)
-            .expect("typerace.sid")
+            .expect(cookies("typerace.sid"))
             .end(function (err, res) {
                 cookie = res.headers["set-cookie"];
-                done();
+                done(err);
             });
     });
 
