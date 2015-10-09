@@ -11,6 +11,11 @@ var del = require("del");
 var eslint = require("gulp-eslint");
 var mocha = require("gulp-mocha");
 
+function swallowError(error) {
+    console.log(error.toString());
+    this.emit("end");
+}
+
 gulp.task("clean", function () {
     del(["./app/styles/tmp/**/*"]);
 });
@@ -21,21 +26,30 @@ gulp.task("sass", ["sprites"], function () {
         .src([
             "./app/styles/global.scss",
         ])
-        .pipe(sass({style: "compressed"}).on("error", util.log))
+        .pipe(sass({style: "compressed"}))
+        .on("error", swallowError)
         .pipe(concat("scss.css"))
+        .on("error", swallowError)
         .pipe(gulp.dest("./app/styles/tmp"));
 });
 
 gulp.task("sprites", function () {
     var spriteData;
     del(["./app/styles/tmp/sprites.css"]); // clear output file
-    spriteData = gulp.src("./app/sprites/*.png").pipe(spritesmith({
-        imgName: "sprite.png",
-        cssName: "sprites.css",
-        padding: 5,
-        imgPath: "../img/sprite.png",
-    }));
-    spriteData.img.pipe(imagemin()).pipe(gulp.dest("./public/img/"));
+    spriteData = gulp.src("./app/sprites/*.png")
+        .pipe(spritesmith({
+            imgName: "sprite.png",
+            cssName: "sprites.css",
+            padding: 5,
+            imgPath: "../img/sprite.png",
+        }))
+        .on("error", swallowError);
+
+    spriteData.img
+        .pipe(imagemin())
+        .on("error", swallowError)
+        .pipe(gulp.dest("./public/img/"));
+
     return spriteData.css.pipe(gulp.dest("./app/styles/tmp"));
 });
 
@@ -50,32 +64,37 @@ gulp.task("css", ["sass"], function () {
         ]
     )
         .pipe(concat("typerace.min.css"))
+        .on("error", swallowError)
         .pipe(cssmin())
+        .on("error", swallowError)
         .pipe(gulp.dest("./public/css"));
 });
 
 gulp.task("lint", function () {
-    return gulp.src([
-        // app
-        "./app/scripts/**/*.js",
-        "./app/scripts/*.js",
-        "./app/*.js",
+    return gulp
+        .src([
+            // app
+            "./app/scripts/**/*.js",
+            "./app/scripts/*.js",
+            "./app/*.js",
 
-        // api
-        "./api/controllers/*.js",
-        "./api/models/*.js",
-        "./api/*.js",
+            // api
+            "./api/controllers/*.js",
+            "./api/models/*.js",
+            "./api/*.js",
 
-        // tests
-        "./tests/**/*.js",
-    ])
+            // tests
+            "./tests/**/*.js",
+        ])
         .pipe(eslint())
-        .pipe(eslint.format());
+        .on("error", swallowError)
+        .pipe(eslint.format())
+        .on("error", swallowError);
 });
 
 gulp.task("js", ["lint"], function () {
-    return gulp.src(
-        [
+    return gulp
+        .src([
             // LIBRARIES AND FRAMEWORKS
             "./app/components/jquery/dist/jquery.js",
             "./app/components/moment/moment.js",
@@ -102,13 +121,14 @@ gulp.task("js", ["lint"], function () {
 
             // VENDOR SCRIPTS
             "./app/components/cookieconsent2/cookieconsent.js",
-        ]
-    )
+        ])
         .pipe(concat("typerace.js"))
+        .on("error", swallowError)
         .pipe(gulp.dest("./public/js")) // Uncomment to add non-ugly output.
         .pipe(rename("typerace.min.js"))
         // .pipe(ngmin()) // VERY heavy angular-safe compression. If ran, it should be possible to enable mangling in uglify(). REQUIRES EXTENSIVE TESTING AFTERWARDS.
         .pipe(uglify({mangle: false}).on("error", util.log))
+        .on("error", swallowError)
         .pipe(gulp.dest("./public/js"));
 });
 
